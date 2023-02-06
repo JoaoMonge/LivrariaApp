@@ -18,16 +18,26 @@ public class Idiomas : PageModel
     //Recebe o formulário HTML e executa o código 
     public void OnPost()
     {
-        Idioma idioma = new Idioma()
+        if (Request.Form["Operacao"].Equals("Actualizar"))
         {
-            Id = Int32.Parse(Request.Form["id"]),
-            Nome = Request.Form["nome"],
-            Sigla = Request.Form["sigla"]
-        };
-        
-        LivrariaContext context = new LivrariaContext();
-        context.updateIdioma(idioma);
-        
+            Idioma idioma = new Idioma()
+            {
+                Id = Int32.Parse(Request.Form["id"]),
+                Nome = Request.Form["nome"],
+                Sigla = Request.Form["sigla"]
+            };
+
+            LivrariaContext context = new LivrariaContext();
+            context.updateIdioma(idioma);
+
+           
+        }
+        else
+        {
+            LivrariaContext context = new LivrariaContext();
+            context.deleteIdioma(Int32.Parse(Request.Form["id"]));
+        }
         OnGet();
+        
     }
 }

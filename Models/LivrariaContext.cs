@@ -108,4 +108,25 @@ public class LivrariaContext
     }
 
 
+    public void deleteIdioma(int id)
+    {
+        using (MySqlConnection conn = GetConnection())
+        {
+            //Abrimos uma coneção com a base de dados
+            conn.Open();
+
+            //Criamos uma query de update 
+            MySqlCommand query = new MySqlCommand("DELETE FROM Idioma WHERE id_idioma = @id", conn);
+            
+            //Para evitar o SQL Injection usamos o mecanismo AddWithValue em vez de colocarmos directamente na string da Query
+            query.Parameters.AddWithValue("@id", id);
+
+            //Como as queries de update não devolvem dados usamos o execute non query em vez do Reader como no exemplo ListAll
+            query.ExecuteNonQuery();
+
+            //Fechamos a ligação com a base de dados
+            conn.Close();
+        } 
+    }
+
 }
