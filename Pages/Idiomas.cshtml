@@ -1,0 +1,60 @@
+@page
+@model LivrariaApp.Pages.Idiomas
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Idiomas</title>
+</head>
+<body>
+<div>
+    
+    <table>
+        <tr>
+            <th>Id</th>
+            <th>Nome</th>
+            <th>Sigla</th>
+        </tr>  
+        
+        @foreach (var item in Model.IdiomaList)
+        {
+            <tr>
+                <!-- Formulário vai servir para trocar informação com o servidor.
+                    method="Post" esconde os dados e envia para o servidor
+                -->
+                <form method="Post">
+                    <td>
+                        <!-- O id aparece na tabela contudo não permitir a sua edição e por escondemos com type="hidden".
+                        Para enviar dados para o servidor eles precisam de duas coisas: 
+                        Estar dentro de um <form></form> e serem do tipo <input>
+                        -->
+                        @Html.DisplayFor(modelItem => item.Id)
+
+                        <input type="hidden" name="id" id="id_Id" value="@Html.DisplayFor(modelItem => item.Id)"/>
+                    </td>
+                    <td>
+                        <!-- input de texto permite alterar o que está na base de dados -->
+                        <input type="text" name="nome" id="nome_Id" value="@Html.DisplayFor(modelItem => item.Nome)" placeholder="Insira o nome.."/>
+                    </td>
+                    <td>
+                        <input type="text" name="sigla" id="sigla_Id" value="@Html.DisplayFor(modelItem => item.Sigla)" placeholder="Insira o sigla.."/>
+                    </td>
+                    <td>
+                        <!-- É botão que submete o formulário para o servidor-->
+                        <input type="submit" value="Gravar"/>
+                    </td>
+                </form>
+                
+            </tr>
+        }
+        
+    </table>
+    
+    
+</div>
+</body>
+</html>
